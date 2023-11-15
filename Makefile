@@ -1,0 +1,7 @@
+INCLUDE_PATH := lib/
+OUTPUT_PATH := bin/
+INPUT_PATH := src/
+OUTPUT_NAME := main
+
+main:
+	clang $(INPUT_PATH)*.c -I$(INCLUDE_PATH) -o $(OUTPUT_PATH)$(OUTPUT_NAME)
