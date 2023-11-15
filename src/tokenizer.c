@@ -12,17 +12,18 @@ int main(int argc, char *argv[])
         printf("ERROR: Source path required!\n");
         return 1;
     }
-    int source_length = read_source(char_array, argv[1]);
+    int source_length = read_source(argv[1]);
     print_source(source_length);
 }
 
-int read_source(char char_array[], char file_path[])
+int read_source(char file_path[])
 {
     FILE *file_pointer = fopen(file_path, "r");
     int chars_read = 0;
     while (!feof(file_pointer))
     {
         char new_char = fgetc(file_pointer);
+
         if (!feof(file_pointer))
         {
             char_array[chars_read] = new_char;
@@ -36,7 +37,7 @@ void print_source(int num)
 {
     for (int i = 0; i < num; i++)
     {
-        printf("%c", char_array[num]);
+        printf("%c", char_array[i]);
     }
     printf("\n");
 }
