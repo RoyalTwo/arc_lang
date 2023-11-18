@@ -77,7 +77,6 @@ TokenType check_token_type(char word[])
 OperatorType convert_to_operator(char character)
 {
     OperatorType operator= INVALID;
-    // TODO: What if char IS an int???
     // Implicitly casting chars to ints for comparison
     if (character == '+')
         operator= PLUS;
