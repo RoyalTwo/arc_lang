@@ -49,18 +49,25 @@ int tokenize(char source[], Token destination[], int source_length)
     for (int i = 0; i < source_length; i++)
     {
         // Go through each character in source array
-        // Add to word[] until you hit whitespace, operator, semicolon, l-rbrace, l-rparenthese
-        // When you do, turn it into token
+        // Add to word[] until you hit whitespace, operator, semicolon, l-rbrace, l-rparen
+        // TODO: Implement braces + parentheses
+        // When you do, turn it into token and reset word[], word_length
+        // If char is not whitespace or operator or semicolon AND isn't a number (if it were a number, operator could return true)
+        if ((isspace(source[i]) || convert_to_operator(source[i]) != INVALID || check_if_semicolon(source[i])) && !isdigit(source[i]))
+        {
+        }
         word = realloc(word, sizeof(word) + sizeof(char));
         (*word)[word_length] = source[i];
         word_length++;
     }
-    printf("%s:", *word);
     free(word);
     return 0;
 }
 Token tokenize_single(char word[])
 {
+    // Call check_token_type to get token type
+    // Create new token with value = word and type = TokenType
+    // return token
 }
 
 TokenType check_token_type(char word[])
@@ -70,6 +77,7 @@ TokenType check_token_type(char word[])
 OperatorType convert_to_operator(char character)
 {
     OperatorType operator= INVALID;
+    // TODO: What if char IS an int???
     // Implicitly casting chars to ints for comparison
     if (character == '+')
         operator= PLUS;
@@ -80,4 +88,9 @@ OperatorType convert_to_operator(char character)
     else if (character == '/')
         operator= DIVIDE;
     return operator;
+}
+
+bool check_if_semicolon(char character)
+{
+    return character == ';';
 }
