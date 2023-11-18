@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include "tokens.h"
 #include <stdbool.h>
+#include <string.h>
+#include "main.h"
 
 typedef enum
 {
@@ -25,10 +27,12 @@ typedef struct
     char value[];
 } Token;
 
+int tokenizer_main(int argc, char *argv[]);
+void ASSERT_MSG(bool, char[]);
+
 // TODO: Switch to dynamic array
-const int MAX_CHARS = 4096;
-char char_array[MAX_CHARS];
-Token token_array[MAX_CHARS];
+char char_array[4096];
+Token token_array[4096];
 
 // Input: char[] file_path
 int read_source(char[]);
