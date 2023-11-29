@@ -1,0 +1,19 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     'bin/main'
+relocations:
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x1000038B4, symSize: 0x30 }
+  - { offsetInCU: 0x4D, offset: 0x4D, size: 0x8, addend: 0x0, symName: _char_array, symBinAddr: 0x100008000, symSize: 0x0 }
+  - { offsetInCU: 0x6F, offset: 0x6F, size: 0x8, addend: 0x0, symName: _token_array, symBinAddr: 0x100009000, symSize: 0x0 }
+  - { offsetInCU: 0x109, offset: 0x109, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x1000038B4, symSize: 0x30 }
+  - { offsetInCU: 0x13F, offset: 0x13F, size: 0x8, addend: 0x0, symName: _ASSERT_MSG, symObjAddr: 0x30, symBinAddr: 0x1000038E4, symSize: 0x5C }
+  - { offsetInCU: 0x26, offset: 0x1AF, size: 0x8, addend: 0x0, symName: _tokenizer_main, symObjAddr: 0x0, symBinAddr: 0x100003940, symSize: 0x68 }
+  - { offsetInCU: 0xED, offset: 0x276, size: 0x8, addend: 0x0, symName: _tokenizer_main, symObjAddr: 0x0, symBinAddr: 0x100003940, symSize: 0x68 }
+  - { offsetInCU: 0x131, offset: 0x2BA, size: 0x8, addend: 0x0, symName: _read_source, symObjAddr: 0x68, symBinAddr: 0x1000039A8, symSize: 0xC0 }
+  - { offsetInCU: 0x191, offset: 0x31A, size: 0x8, addend: 0x0, symName: _tokenize, symObjAddr: 0x128, symBinAddr: 0x100003A68, symSize: 0x284 }
+  - { offsetInCU: 0x261, offset: 0x3EA, size: 0x8, addend: 0x0, symName: _print_source, symObjAddr: 0x3AC, symBinAddr: 0x100003CEC, symSize: 0x84 }
+  - { offsetInCU: 0x2A1, offset: 0x42A, size: 0x8, addend: 0x0, symName: _convert_to_operator, symObjAddr: 0x430, symBinAddr: 0x100003D70, symSize: 0xA4 }
+  - { offsetInCU: 0x2D7, offset: 0x460, size: 0x8, addend: 0x0, symName: _check_if_semicolon, symObjAddr: 0x4D4, symBinAddr: 0x100003E14, symSize: 0x20 }
+  - { offsetInCU: 0x2FF, offset: 0x488, size: 0x8, addend: 0x0, symName: _tokenize_single, symObjAddr: 0x4F4, symBinAddr: 0x100003E34, symSize: 0x38 }
+  - { offsetInCU: 0x327, offset: 0x4B0, size: 0x8, addend: 0x0, symName: _check_token_type, symObjAddr: 0x52C, symBinAddr: 0x100003E6C, symSize: 0x14 }
+...

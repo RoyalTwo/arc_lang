@@ -10,15 +10,15 @@
 
 typedef enum
 {
-    KEYWORD,
-    LPAREN,
-    RPAREN,
-    EQUALS,
-    SEMICOLON,
-    LBRACE,
-    RBRACE,
-    IDENTIFIER,
-    INTEGER
+    T_KEYWORD,
+    T_LPAREN,
+    T_RPAREN,
+    T_EQUALS,
+    T_SEMICOLON,
+    T_LBRACE,
+    T_RBRACE,
+    T_IDENTIFIER,
+    T_INTEGER
 } TokenType;
 
 typedef struct
@@ -41,8 +41,8 @@ void print_source(int);
 // Input: char[] source array, Token[] destination array, int number of characters in source array
 int tokenize(char[], Token[], int);
 // Input: char[] word
-// Output: Token { type and value }
-Token tokenize_single(char[]);
+// Output: Token *{ type and value }
+Token *tokenize_single(char[]);
 // Input: char[] word
 // Output: TokenType
 TokenType check_token_type(char[]);

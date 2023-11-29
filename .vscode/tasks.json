@@ -2,9 +2,17 @@
     "tasks": [
         {
             "type": "cppbuild",
-            "label": "C/C++: clang build active file",
-            "command": "make",
-            "args": [],
+            "label": "Build",
+            "command": "/usr/bin/clang",
+            "args": [
+                "-fcolor-diagnostics",
+                "-fansi-escape-codes",
+                "-g",
+                "src/*.c",
+                "-Ilib/",
+                "-o",
+                "bin/main"
+            ],
             "options": {
                 "cwd": "${workspaceFolder}"
             },

@@ -6,6 +6,7 @@ int tokenizer_main(int argc, char *argv[])
     ASSERT_MSG(argc >= 2, "Source path required!");
     int source_length = read_source(argv[1]);
     tokenize(char_array, token_array, source_length);
+    return 0;
 }
 
 int read_source(char file_path[])
@@ -37,58 +38,35 @@ void print_source(int num)
 
 int tokenize(char source[], Token destination[], int source_length)
 {
-    // Get next word:
-    // Go through each character in source array
-    // check for whitespace, operator, semicolon, l-rbrace, l-rparenthese
-    // These would end a word.
     char(*word)[] = malloc(sizeof(char));
     ASSERT_MSG(word != NULL, "Allocating word failed!");
     int word_length = 0;
-    int token_array_length = 0;
+    // TODO: Change from static array cap
+    char words[128][1024]; // 128 words of 1024 chars each
+    int words_array_position = 0;
+    // For now, we're just going to collect words and only on spaces
+    // Loop through every char in source,
+    // If char is space OR is end of array, previous chars were a word
     for (int i = 0; i <= source_length; i++)
     {
-        // Go through each character in source array
-        // Add to word[] until you hit whitespace, operator, semicolon, l-rbrace, l-rparen
-        // TODO: Implement braces + parentheses
-        // When you do, turn it into token and reset word[], word_length
-        // If char is whitespace or operator or semicolon AND isn't a number (if it were a number, operator could return true)
-        if (((isspace(source[i]) || convert_to_operator(source[i]) != INVALID || check_if_semicolon(source[i])) && !isdigit(source[i])) || i == source_length)
+        if (isspace(source[i]) || i == source_length)
         {
-            // word is empty, do not store
-            if ((*word)[0] == '\0')
-                continue;
-
-            Token new_token = tokenize_single(*word);
-            token_array[token_array_length] = new_token;
-            token_array_length++;
-
-            // Reset word
+            // Save word, reset word, continue to next char
+            strcpy(words[words_array_position], *word);
             free(word);
             word_length = 0;
             word = malloc(sizeof(char));
-            (*word)[0] = '\0';
             ASSERT_MSG(word != NULL, "Allocating word failed!");
-
+            words_array_position++;
             continue;
         }
         word = realloc(word, sizeof(word) + sizeof(char));
         ASSERT_MSG(word != NULL, "Re-allocating word failed!");
-
         (*word)[word_length] = source[i];
         word_length++;
     }
+    printf("[%s, %s]\n", words[0], words[1]);
     return 0;
-}
-Token tokenize_single(char word[])
-{
-    // Call check_token_type to get token type
-    // Create new token with value = word and type = TokenType
-    // return token
-    printf("%s\n", word);
-}
-
-TokenType check_token_type(char word[])
-{
 }
 
 OperatorType convert_to_operator(char character)
@@ -96,7 +74,9 @@ OperatorType convert_to_operator(char character)
     OperatorType operator= INVALID;
     // Implicitly casting chars to ints for comparison
     if (character == '+')
+    {
         operator= PLUS;
+    }
     else if (character == '-')
         operator= MINUS;
     else if (character == '*')
