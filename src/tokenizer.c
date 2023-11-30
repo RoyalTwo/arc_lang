@@ -104,6 +104,8 @@ int tokenize(char source[], Token *destination[], int source_length)
         token_array[token_array_length] = new_token;
         token_array_length++;
     }
+
+    // Printing all tokens for debug purposes
     for (int i = 0; i < token_array_length; i++)
     {
         printf("TYPE: %d | VALUE: %s\n", token_array[i]->type, token_array[i]->value);
@@ -146,7 +148,7 @@ Token *tokenize_single(char word[])
         T_INTEGER
     */
     // TODO: Handle operators
-    // TODO: Handle IDENTIFIERS and KEYWORDS
+    // TODO: Handle KEYWORDS
 
     // strcmp returns 0 if strings are equal
     if (!strcmp(word, "("))
