@@ -84,6 +84,7 @@ int tokenize(char source[], Token *destination[], int source_length)
 
         // This section is where we add characters to the word variable
         // If word was just set to be NULL, we want to erase that so we can add our new chars
+        // TODO: Alternative: set word to \0 so we don't need to erase any strings but can still compare
         if (!strcmp(*word, "NULL"))
         {
             free(word);
