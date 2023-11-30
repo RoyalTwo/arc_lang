@@ -1,10 +1,8 @@
 #include "tokenizer.h"
 
-int tokenizer_main(int argc, char *argv[])
+int tokenizer_main(char path[])
 {
-    // Tokenize file
-    ASSERT_MSG(argc >= 2, "Source path required!");
-    int source_length = read_source(argv[1]);
+    int source_length = read_source(path);
     tokenize(char_array, token_array, source_length);
     return 0;
 }
@@ -27,15 +25,6 @@ int read_source(char file_path[])
     return chars_read;
 }
 
-void print_source(int num)
-{
-    for (int i = 0; i < num; i++)
-    {
-        printf("%c", char_array[i]);
-    }
-    printf("\n");
-}
-
 int tokenize(char source[], Token destination[], int source_length)
 {
     char(*word)[] = malloc(sizeof(char));
@@ -45,7 +34,6 @@ int tokenize(char source[], Token destination[], int source_length)
     char words[128][1024]; // 128 words of 1024 chars each
     int words_array_position = 0;
     // For now, we're just going to collect words and only on spaces
-    // Loop through every char in source,
     // If char is space OR is end of array, previous chars were a word
     for (int i = 0; i <= source_length; i++)
     {
@@ -65,7 +53,15 @@ int tokenize(char source[], Token destination[], int source_length)
         (*word)[word_length] = source[i];
         word_length++;
     }
-    printf("[%s, %s]\n", words[0], words[1]);
+
+    // Now that we have the words in an array, we can go through and tokenize
+    int token_array_length = 0;
+    for (int i = 0; i < words_array_position; i++)
+    {
+        Token *new_token = tokenize_single(words[i]);
+        token_array[token_array_length] = *new_token;
+        token_array_length++;
+    }
     return 0;
 }
 
@@ -86,7 +82,50 @@ OperatorType convert_to_operator(char character)
     return operator;
 }
 
-bool check_if_semicolon(char character)
+Token *tokenize_single(char word[])
 {
-    return character == ';';
+    Token *new_token = malloc(sizeof(Token));
+    new_token->type = T_KEYWORD; // KEYWORD by default
+    strcpy(new_token->value, word);
+    // TYPES:
+    /*
+        T_KEYWORD,
+        T_LPAREN,
+        T_RPAREN,
+        T_EQUALS,
+        T_SEMICOLON,
+        T_LBRACE,
+        T_RBRACE,
+        T_IDENTIFIER,
+        T_INTEGER
+    */
+    // TODO: Handle operators
+    // TODO: Handle IDENTIFIERS and KEYWORDS
+
+    // strcmp returns 0 if strings are equal
+    if (!strcmp(word, "("))
+    {
+        new_token->type = T_LPAREN;
+    }
+    else if (!strcmp(word, ")"))
+    {
+        new_token->type = T_RPAREN;
+    }
+    else if (!strcmp(word, "="))
+    {
+        new_token->type = T_EQUALS;
+    }
+    else if (!strcmp(word, ";"))
+    {
+        new_token->type = T_SEMICOLON;
+    }
+    else if (!strcmp(word, "{"))
+    {
+        new_token->type = T_LBRACE;
+    }
+    else if (!strcmp(word, "}"))
+    {
+        new_token->type = T_RBRACE;
+    }
+    return new_token;
 }
