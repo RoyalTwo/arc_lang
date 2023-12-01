@@ -37,14 +37,13 @@ int tokenize(char source[], Token *destination[], int source_length)
 
     for (int i = 0; i <= source_length; i++)
     {
-        // There are probably a number of ways to optimize this, but this will do for now.
+        // There are a number of ways to optimize this, but this will do for now.
 
         // NOTE: Whenever you see strcpy(*word, "NULL"), the reasoning is so we can check if the word has not been added to yet
         // For example, if a word has just been tokenized and reset, the next character is a space so we want to add the previous word,
         // but word is empty due to it being reset.
         // If it's empty, we don't want to add it to the words array
-        // TODO: Handle operators
-        if (source[i] == '(' || source[i] == ')' || source[i] == '{' || source[i] == '}' || source[i] == ';' || source[i] == '=')
+        if (source[i] == '(' || source[i] == ')' || source[i] == '{' || source[i] == '}' || source[i] == ';' || source[i] == '=' || source[i] == '+' || source[i] == '-' || source[i] == '*' || source[i] == '/')
         {
             if (strcmp(*word, "NULL"))
             {
@@ -146,9 +145,9 @@ Token *tokenize_single(char word[])
         T_LBRACE,
         T_RBRACE,
         T_IDENTIFIER,
-        T_INTEGER
+        T_INTEGER,
+        T_OPERATOR
     */
-    // TODO: Handle operators
     // TODO: Handle KEYWORDS
 
     // strcmp returns 0 if strings are equal
@@ -175,6 +174,10 @@ Token *tokenize_single(char word[])
     else if (!strcmp(word, "}"))
     {
         new_token->type = T_RBRACE;
+    }
+    else if (!strcmp(word, "+") || !strcmp(word, "-") || !strcmp(word, "*") || !strcmp(word, "/"))
+    {
+        new_token->type = T_OPERATOR;
     }
     return new_token;
 }

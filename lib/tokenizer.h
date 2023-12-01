@@ -18,7 +18,8 @@ typedef enum
     T_LBRACE,
     T_RBRACE,
     T_IDENTIFIER,
-    T_INTEGER
+    T_INTEGER,
+    T_OPERATOR
 } TokenType;
 
 typedef struct

@@ -1,4 +1,1 @@
-hi there{} ;
-test ;
-
-how is it going()=test
+hello world () {} ; + - --
