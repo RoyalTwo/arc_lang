@@ -27,6 +27,8 @@ int read_source(char file_path[])
 
 int tokenize(char source[], Token *destination[], int source_length)
 {
+    // There are a number of ways to optimize this, but this will do for now.
+
     char(*word)[] = malloc(sizeof(char));
     ASSERT_MSG(word != NULL, "Allocating word failed!");
     strcpy(*word, "NULL");
@@ -37,7 +39,43 @@ int tokenize(char source[], Token *destination[], int source_length)
 
     for (int i = 0; i <= source_length; i++)
     {
-        // There are a number of ways to optimize this, but this will do for now.
+        if (isdigit(source[i]))
+        {
+            if (strcmp(*word, "NULL"))
+            {
+                strcpy(words[words_array_position], *word);
+                free(word);
+                word_length = 0;
+                word = malloc(sizeof(char));
+                ASSERT_MSG(word != NULL, "Allocating word failed!");
+                words_array_position++;
+            }
+
+            char current_char = source[i];
+            while (isdigit(current_char))
+            {
+                if (!strcmp(*word, "NULL"))
+                {
+                    free(word);
+                    word = malloc(sizeof(char));
+                    ASSERT_MSG(word != NULL, "Allocating word failed!");
+                    word_length = 0;
+                }
+                word = realloc(word, sizeof(word) + sizeof(char));
+                ASSERT_MSG(word != NULL, "Re-allocating word failed!");
+                (*word)[word_length] = current_char;
+                word_length++;
+                i++;
+                current_char = source[i];
+            }
+            strcpy(words[words_array_position], *word);
+            free(word);
+            word_length = 0;
+            word = malloc(sizeof(char));
+            ASSERT_MSG(word != NULL, "Allocating word failed!");
+            strcpy(*word, "NULL");
+            words_array_position++;
+        }
 
         // NOTE: Whenever you see strcpy(*word, "NULL"), the reasoning is so we can check if the word has not been added to yet
         // For example, if a word has just been tokenized and reset, the next character is a space so we want to add the previous word,
@@ -84,6 +122,7 @@ int tokenize(char source[], Token *destination[], int source_length)
         // This section is where we add characters to the word variable
         // If word was just set to be NULL, we want to erase that so we can add our new chars
         // TODO: Alternative: set word to \0 so we don't need to erase any strings but can still compare
+        // TODO: Create copy_word_and_reset()
         if (!strcmp(*word, "NULL"))
         {
             free(word);
@@ -178,6 +217,19 @@ Token *tokenize_single(char word[])
     else if (!strcmp(word, "+") || !strcmp(word, "-") || !strcmp(word, "*") || !strcmp(word, "/"))
     {
         new_token->type = T_OPERATOR;
+    }
+    else if (isdigit(word[0]))
+    {
+        int word_length = strlen(word);
+        bool are_all_ints = true;
+        for (int i = 0; i < word_length; i++)
+        {
+            are_all_ints = isdigit(word[i]) ? true : false;
+        }
+        if (are_all_ints)
+        {
+            new_token->type = T_INTEGER;
+        }
     }
     return new_token;
 }
