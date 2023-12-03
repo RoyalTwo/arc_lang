@@ -1,6 +1,6 @@
 #include "generator.h"
 
-void generate(ProgramNode program)
+void generate(ProgramNode program, char input_path[])
 {
     // ASM:
     // Function:
@@ -12,7 +12,9 @@ void generate(ProgramNode program)
     //  movl    $3, %eax
     //  ret
 
-    FILE *asm_file = fopen("test_files/asm_output.asm", "w");
+    strcat(input_path, ".asm");
+
+    FILE *asm_file = fopen(input_path, "w");
     ASSERT_MSG(asm_file != NULL, "Could not open ASM file!");
     char asm_func_name[128] = "_";
     strcat(asm_func_name, program.function.id);

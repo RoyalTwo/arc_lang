@@ -4,4 +4,4 @@
 #include "types.h"
 #include "parser.h"
 
-void generate(ProgramNode);
+void generate(ProgramNode, char[]);

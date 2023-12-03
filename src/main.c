@@ -9,7 +9,17 @@ int main(int argc, char *argv[])
     // Call tokenizer with given params
     tokenizer_main(argv[1]);
     ProgramNode program = parser_main(token_array);
-    generate(program);
+
+    char input_path[512];
+    strcpy(input_path, argv[1]);
+    input_path[strlen(argv[1]) - 4] = '\0';
+    generate(program, input_path);
+    // Compile asm and delete file
+    char command[512] = "gcc ";
+    strcat(command, input_path);
+    strcat(command, " -o program && rm ");
+    strcat(command, input_path);
+    system(command);
 }
 
 void ASSERT_MSG(bool condition, char message[])
