@@ -18,7 +18,7 @@ Function_Node parse_function(Token *tokens[])
     Function_Node function;
     // int main() { statement }
     // <function> ::= "int" <id> "(" ")" "{" <statement> "}"
-    ASSERT_MSG(!strcmp(tokens[array_pos]->value, "int"), "Missing int!");
+    ASSERT_MSG((tokens[array_pos]->type == T_KWINT), "Missing int!");
     array_pos++;
     ASSERT_MSG((tokens[array_pos]->type == T_IDENTIFIER), "Missing function name!");
     strcpy(function.id, tokens[array_pos]->value);
@@ -48,7 +48,8 @@ Statement_Node parse_statement(Token *tokens[])
     int array_pos = 0;
     // return expr;
     // <statement> ::= "return" <exp> ";"
-    ASSERT_MSG(!strcmp(tokens[array_pos]->value, "return"), "Missing return keyword!");
+    // Always has to be return statement for now
+    ASSERT_MSG((tokens[array_pos]->type == T_KWRETURN), "Missing return keyword!");
     array_pos++;
     Token *expression_tokens[128];
     expression_tokens[0] = tokens[array_pos];
