@@ -2,9 +2,6 @@
 
 int tokenizer_main(char path[])
 {
-    // TODO: change from just adding keywords like this
-    strcpy(keywords[0], "return");
-    strcpy(keywords[1], "int");
     int source_length = read_source(path);
     tokenize(char_array, token_array, source_length);
     return 0;
@@ -190,7 +187,6 @@ Token *tokenize_single(char word[])
         T_INTEGER,
         T_OPERATOR
     */
-    // TODO: Handle KEYWORDS
 
     // strcmp returns 0 if strings are equal
     if (!strcmp(word, "("))
@@ -234,10 +230,13 @@ Token *tokenize_single(char word[])
             new_token->type = T_INTEGER;
         }
     }
-    else if (!strcmp(word, keywords[0]) || !strcmp(word, keywords[1]))
+    else if (!strcmp(word, "return"))
     {
-        // keyword: int, return
-        new_token->type = T_KEYWORD;
+        new_token->type = T_KWRETURN;
+    }
+    else if (!strcmp(word, "int"))
+    {
+        new_token->type = T_KWINT;
     }
     return new_token;
 }

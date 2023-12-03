@@ -3,7 +3,8 @@
 // TODO: Put operatorTypes here
 typedef enum
 {
-    T_KEYWORD,
+    T_KWRETURN,
+    T_KWINT,
     T_LPAREN,
     T_RPAREN,
     T_EQUALS,
@@ -32,7 +33,6 @@ typedef struct
 } Expression_Node;
 typedef struct
 {
-    // TODO: Add KEYWORD
     Expression_Node expr;
 } Statement_Node;
 typedef struct

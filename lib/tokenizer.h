@@ -15,7 +15,6 @@ void ASSERT_MSG(bool, char[]);
 // TODO: Switch to dynamic array
 char char_array[4096];
 Token *token_array[4096];
-char keywords[128][256]; // 128 words of 256 characters
 
 // Input: char[] file_path
 int read_source(char[]);
