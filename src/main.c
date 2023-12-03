@@ -9,6 +9,7 @@ int main(int argc, char *argv[])
     // Call tokenizer with given params
     tokenizer_main(argv[1]);
     ProgramNode program = parser_main(token_array);
+    generate(program);
 }
 
 void ASSERT_MSG(bool condition, char message[])

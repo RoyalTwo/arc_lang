@@ -3,6 +3,7 @@
 ProgramNode parser_main(Token *tokens[])
 {
     ProgramNode root = parse_program(tokens);
+    print_ast(root);
     return root;
 }
 ProgramNode parse_program(Token *tokens[])
@@ -64,4 +65,16 @@ Expression_Node parse_expression(Token *tokens[])
     Constant c = {atoi(tokens[0]->value)};
     Expression_Node expr = {c};
     return expr;
+}
+void print_ast(ProgramNode program)
+{
+    // Program: Function
+    // Function: statement, id, params, Body
+    // Body: Statement
+    // Statement: return Expression
+    // Expression: Constant
+    printf("PROGRAM:\n");
+    printf("FUN %s:\n", program.function.id);
+    printf("  body:\n");
+    printf("    RETURN Constant<%d>\n", program.function.statement.expr.constant.integer);
 }

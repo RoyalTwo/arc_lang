@@ -24,7 +24,7 @@ typedef struct
 // AST Nodes
 typedef struct
 {
-    int constant;
+    int integer;
 } Constant;
 typedef struct
 {
