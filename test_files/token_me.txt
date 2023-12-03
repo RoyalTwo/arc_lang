@@ -2,5 +2,5 @@
 
 {
     54
-    word test
+    return word test
 }

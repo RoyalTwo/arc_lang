@@ -8,6 +8,7 @@ int main(int argc, char *argv[])
     ASSERT_MSG(argc >= 2, "Source path required!");
     // Call tokenizer with given params
     tokenizer_main(argv[1]);
+    ProgramNode program = parser_main(token_array);
 }
 
 void ASSERT_MSG(bool condition, char message[])

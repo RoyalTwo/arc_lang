@@ -7,26 +7,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include "main.h"
-
-typedef enum
-{
-    T_KEYWORD,
-    T_LPAREN,
-    T_RPAREN,
-    T_EQUALS,
-    T_SEMICOLON,
-    T_LBRACE,
-    T_RBRACE,
-    T_IDENTIFIER,
-    T_INTEGER,
-    T_OPERATOR
-} TokenType;
-
-typedef struct
-{
-    TokenType type;
-    char value[];
-} Token;
+#include "types.h"
 
 int tokenizer_main(char[]);
 void ASSERT_MSG(bool, char[]);
@@ -34,6 +15,7 @@ void ASSERT_MSG(bool, char[]);
 // TODO: Switch to dynamic array
 char char_array[4096];
 Token *token_array[4096];
+char keywords[128][256]; // 128 words of 256 characters
 
 // Input: char[] file_path
 int read_source(char[]);

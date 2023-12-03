@@ -2,6 +2,9 @@
 
 int tokenizer_main(char path[])
 {
+    // TODO: change from just adding keywords like this
+    strcpy(keywords[0], "return");
+    strcpy(keywords[1], "int");
     int source_length = read_source(path);
     tokenize(char_array, token_array, source_length);
     return 0;
@@ -145,10 +148,10 @@ int tokenize(char source[], Token *destination[], int source_length)
     }
 
     // Printing all tokens for debug purposes
-    for (int i = 0; i < token_array_length; i++)
-    {
-        printf("TYPE: %d | VALUE: %s\n", token_array[i]->type, token_array[i]->value);
-    }
+    // for (int i = 0; i < token_array_length; i++)
+    // {
+    //     printf("TYPE: %d | VALUE: %s\n", token_array[i]->type, token_array[i]->value);
+    // }
     return 0;
 }
 
@@ -230,6 +233,11 @@ Token *tokenize_single(char word[])
         {
             new_token->type = T_INTEGER;
         }
+    }
+    else if (!strcmp(word, keywords[0]) || !strcmp(word, keywords[1]))
+    {
+        // keyword: int, return
+        new_token->type = T_KEYWORD;
     }
     return new_token;
 }
